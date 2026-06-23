@@ -1,4 +1,5 @@
 import type { CaseStudyData } from "@/components/sections/case-study";
+import type { ToolKey } from "@/components/portfolio/tool-icons";
 
 export const CASE_STUDIES: CaseStudyData[] = [
   {
@@ -30,10 +31,24 @@ export const CASE_STUDIES: CaseStudyData[] = [
     ],
     screenshots: [
       {
+        src: "/assets/kianestate-overview.png",
+        caption: "Staff Portal — dashboard overview with property stats and quick actions",
+        alt: "Kian Estate staff portal dashboard overview",
+      },
+      {
+        src: "/assets/kianestate-properties.png",
+        caption: "Properties ops view — filterable listing grid with status and MLS sync",
+        alt: "Kian Estate properties ops view",
+      },
+      {
         src: "/assets/kianestate-images.png",
-        caption:
-          "Images library — AI audit panel flagging SEO and duplicate issues",
+        caption: "Images library — AI audit panel flagging SEO and duplicate issues",
         alt: "Kian Estate staff portal image library with AI audit panel",
+      },
+      {
+        src: "/assets/kianestate-translations.png",
+        caption: "Translations workflow — DeepSeek-powered copy with Ask ChatGPT dropdown",
+        alt: "Kian Estate translations workflow with Ask ChatGPT",
       },
     ],
     techTags: [
@@ -44,6 +59,18 @@ export const CASE_STUDIES: CaseStudyData[] = [
       "PostgreSQL",
       "Custom CMS",
       "SEO pipeline",
+    ],
+    tools: [
+      "nextjs",
+      "react",
+      "typescript",
+      "openai",
+      "chatgpt",
+      "deepseek",
+      "postgres",
+      "mls",
+      "api",
+      "vercel",
     ],
     mermaid: `flowchart LR
     subgraph Staff Portal
@@ -132,6 +159,16 @@ export const CASE_STUDIES: CaseStudyData[] = [
       "Sync jobs",
       "Admin dashboard",
     ],
+    tools: [
+      "nextjs",
+      "react",
+      "typescript",
+      "lodgify",
+      "postgres",
+      "api",
+      "node",
+      "vercel",
+    ],
     mermaid: `flowchart TB
     subgraph External
         L[Lodgify API]
@@ -202,6 +239,13 @@ export const CASE_STUDIES: CaseStudyData[] = [
       { value: "Daily", label: "Cron-driven scraper" },
       { value: "3-tier", label: "Lead scoring (H/M/L)" },
     ],
+    countyImages: [
+      { src: "/assets/county-sarasota.jpg", name: "Sarasota County" },
+      { src: "/assets/county-miami-dade.jpg", name: "Miami-Dade County" },
+      { src: "/assets/county-orange.jpg", name: "Orange County" },
+      { src: "/assets/county-hillsborough.jpg", name: "Hillsborough County" },
+      { src: "/assets/county-palm-beach.jpg", name: "Palm Beach County" },
+    ],
     techTags: [
       "Python",
       "FastAPI",
@@ -213,6 +257,19 @@ export const CASE_STUDIES: CaseStudyData[] = [
       "ArcGIS",
       "Sunbiz",
       "Lead scoring",
+    ],
+    tools: [
+      "python",
+      "fastapi",
+      "scrapy",
+      "zyte",
+      "postgres",
+      "alembic",
+      "railway",
+      "arcgis",
+      "sunbiz",
+      "api",
+      "rag",
     ],
     mermaid: `flowchart TB
     subgraph Sources["67 Florida Counties"]

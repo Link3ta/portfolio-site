@@ -7,28 +7,27 @@ mermaid.initialize({
   startOnLoad: false,
   theme: "base",
   themeVariables: {
-    // dark editorial copper palette
+    // light SaaS — blue accents
     background: "transparent",
-    primaryColor: "#1A2230",
-    primaryTextColor: "#F4F0EA",
-    primaryBorderColor: "#C4895A",
-    lineColor: "#9BA8B8",
-    secondaryColor: "#121820",
-    secondaryTextColor: "#F4F0EA",
-    secondaryBorderColor: "#5C6B7A",
-    tertiaryColor: "#0B0F14",
-    tertiaryTextColor: "#F4F0EA",
-    tertiaryBorderColor: "#5C6B7A",
-    noteBkgColor: "#1A2230",
-    noteTextColor: "#F4F0EA",
-    noteBorderColor: "#C4895A",
-    edgeLabelBackground: "#0B0F14",
+    primaryColor: "#EFF6FF",
+    primaryTextColor: "#0F172A",
+    primaryBorderColor: "#2563EB",
+    lineColor: "#475569",
+    secondaryColor: "#F0FDFA",
+    secondaryTextColor: "#0F172A",
+    secondaryBorderColor: "#0D9488",
+    tertiaryColor: "#FFFFFF",
+    tertiaryTextColor: "#0F172A",
+    tertiaryBorderColor: "#CBD5E1",
+    noteBkgColor: "#FEF3C7",
+    noteTextColor: "#0F172A",
+    noteBorderColor: "#D97706",
+    edgeLabelBackground: "#FFFFFF",
     fontFamily: '"JetBrains Mono", ui-monospace, monospace',
     fontSize: "13px",
-    clusterBkg: "rgba(244, 240, 234, 0.03)",
-    clusterBorder: "rgba(196, 137, 90, 0.4)",
-    // decision diamond
-    altBackground: "#121820",
+    clusterBkg: "#F8FAFC",
+    clusterBorder: "#2563EB",
+    altBackground: "#F1F5F9",
   },
   flowchart: {
     htmlLabels: true,
@@ -75,7 +74,7 @@ export function MermaidDiagram({
     <div className="my-6">
       {label && (
         <div className="label-caps mb-3 flex items-center gap-3">
-          <span className="inline-block w-6 h-px bg-[var(--accent-copper)]" />
+          <span className="inline-block w-6 h-px bg-[var(--accent-blue)]" />
           {label}
         </div>
       )}

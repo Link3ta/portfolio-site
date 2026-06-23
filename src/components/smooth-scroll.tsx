@@ -10,16 +10,27 @@ if (typeof window !== "undefined") {
 }
 
 function LenisScrollTriggerSync() {
-  // Drive ScrollTrigger updates from Lenis scroll events
-  useLenis(() => {
-    ScrollTrigger.update();
-  });
+  const lenis = useLenis();
 
   useEffect(() => {
-    // Refresh after mount so triggers calculate correct positions
-    const t = setTimeout(() => ScrollTrigger.refresh(), 200);
-    return () => clearTimeout(t);
-  }, []);
+    if (!lenis) return;
+    // Sync Lenis scroll events with ScrollTrigger
+    const onScroll = () => ScrollTrigger.update();
+    lenis.on("scroll", onScroll);
+
+    // Refresh after mount + after images/layout settle
+    const refresh = () => ScrollTrigger.refresh();
+    const t1 = setTimeout(refresh, 400);
+    const t2 = setTimeout(refresh, 1500);
+    const t3 = setTimeout(refresh, 3000);
+
+    return () => {
+      lenis.off("scroll", onScroll);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, [lenis]);
 
   return null;
 }

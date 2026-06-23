@@ -31,16 +31,27 @@ const EXPERIENCE = [
     period: "Sep 2024 – Jan 2026",
     points: [
       "Safety-critical vehicle platforms (ISO 26262, UNECE R155/R156)",
+      "Defined electric bus E/E architecture — battery, drivetrain, ECU network, CAN bus, ADAS",
       "FMEA, TARA, supplier integration",
     ],
+    image: "/assets/bus-architecture.png",
+    imageAlt:
+      "Futuristic electric bus system architecture — battery, drivetrain, ECU network, CAN bus",
+    imageCaption: "Electric bus E/E architecture — battery, drivetrain, ECU network, CAN bus, ADAS",
   },
   {
     role: "Systems & Validation Engineer",
     org: "Volvo Buses, Gothenburg",
     period: "Jan 2023 – Aug 2024",
     points: [
-      "ECU application software · SIL/HIL validation · Arctic field testing (−40°C)",
+      "ECU application software · SIL/HIL validation",
+      "Arctic winter field testing (−40°C) on the road to Kebnekaise, Kiruna",
     ],
+    image: "/assets/kiruna-bus-test.png",
+    imageAlt:
+      "Electric bus winter-tested on the snowy road to Kebnekaise, Kiruna, northern Sweden",
+    imageCaption:
+      "Winter field test — road to Kebnekaise, Kiruna. Real-world validation at −40°C.",
   },
 ];
 
@@ -58,10 +69,7 @@ export function About() {
         duration: 1.0,
         ease: "power4.out",
         stagger: 0.08,
-        scrollTrigger: {
-          trigger: ".about-headline",
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: ".about-headline", start: "top 80%" },
       });
 
       gsap.from(".about-body p", {
@@ -70,10 +78,7 @@ export function About() {
         duration: 0.8,
         ease: "power2.out",
         stagger: 0.12,
-        scrollTrigger: {
-          trigger: ".about-body",
-          start: "top 78%",
-        },
+        scrollTrigger: { trigger: ".about-body", start: "top 78%" },
       });
 
       gsap.from(".about-side > *", {
@@ -82,10 +87,7 @@ export function About() {
         duration: 0.7,
         ease: "power2.out",
         stagger: 0.1,
-        scrollTrigger: {
-          trigger: ".about-side",
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: ".about-side", start: "top 80%" },
       });
 
       gsap.from(".exp-item", {
@@ -94,10 +96,15 @@ export function About() {
         duration: 0.7,
         ease: "power2.out",
         stagger: 0.12,
-        scrollTrigger: {
-          trigger: ".exp-list",
-          start: "top 82%",
-        },
+        scrollTrigger: { trigger: ".exp-list", start: "top 82%" },
+      });
+
+      gsap.from(".exp-image", {
+        y: 30,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".exp-image", start: "top 85%" },
       });
     },
     { scope: ref, dependencies: [reduced] },
@@ -107,15 +114,11 @@ export function About() {
     <section
       id="about"
       ref={ref}
-      className="relative py-24 md:py-32"
-      style={{
-        background:
-          "linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 100%)",
-      }}
+      className="relative py-24 md:py-32 bg-[var(--bg-soft)]"
     >
       <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
         <div className="label-caps mb-8 flex items-center gap-3">
-          <span className="inline-block w-8 h-px bg-[var(--accent-copper)]" />
+          <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
           About
         </div>
 
@@ -124,8 +127,8 @@ export function About() {
             <h2
               className="about-headline font-serif text-[var(--text-primary)] leading-[1.05]"
               style={{
-                fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                fontWeight: 500,
+                fontSize: "clamp(2rem, 4vw, 3.25rem)",
+                fontWeight: 600,
                 letterSpacing: "-0.02em",
               }}
             >
@@ -135,7 +138,7 @@ export function About() {
               <span className="line-mask block">
                 <span className="line block">
                   to production AI{" "}
-                  <span className="text-[var(--accent-copper)]">in real estate.</span>
+                  <span className="text-[var(--accent-blue)]">in real estate.</span>
                 </span>
               </span>
             </h2>
@@ -143,7 +146,7 @@ export function About() {
             <div className="about-body mt-10 space-y-6 text-[var(--text-secondary)] max-w-2xl">
               <p style={{ fontSize: "1.0625rem", lineHeight: 1.75 }}>
                 I&apos;m an{" "}
-                <strong className="text-[var(--text-primary)] font-medium">
+                <strong className="text-[var(--text-primary)] font-semibold">
                   Applied AI Engineer based in Oslo
                 </strong>
                 , building production LLM products end to end — from APIs and
@@ -155,19 +158,19 @@ export function About() {
               </p>
               <p style={{ fontSize: "1.0625rem", lineHeight: 1.75 }}>
                 For the past{" "}
-                <strong className="text-[var(--text-primary)] font-medium">
+                <strong className="text-[var(--text-primary)] font-semibold">
                   eight months
                 </strong>
                 , I&apos;ve worked hands-on with one of Gothenburg&apos;s top
                 real estate agents — building bespoke staff portals, AI
                 translation engines, MLS integrations, and owner-facing property
                 management systems for{" "}
-                <span className="text-[var(--accent-amber)]">Kian Estate</span>{" "}
+                <span className="text-[var(--accent-blue)] font-medium">Kian Estate</span>{" "}
                 (luxury Marbella) and{" "}
-                <span className="text-[var(--accent-amber)]">KE Stays</span>{" "}
+                <span className="text-[var(--accent-blue)] font-medium">KE Stays</span>{" "}
                 (vacation rentals). That proptech immersion sits alongside my
                 independent work on a{" "}
-                <span className="text-[var(--accent-amber)]">
+                <span className="text-[var(--accent-blue)] font-medium">
                   Florida Lead Portal
                 </span>{" "}
                 — a Python/FastAPI platform scraping and enriching permits
@@ -175,7 +178,7 @@ export function About() {
               </p>
               <p style={{ fontSize: "1.0625rem", lineHeight: 1.75 }}>
                 My background is{" "}
-                <strong className="text-[var(--text-primary)] font-medium">
+                <strong className="text-[var(--text-primary)] font-semibold">
                   ISO 26262 / safety-critical systems at Volvo Buses
                 </strong>{" "}
                 — the same discipline I apply to AI quality: measurable
@@ -184,14 +187,14 @@ export function About() {
             </div>
           </div>
 
-          <div className="about-side lg:col-span-5 space-y-8">
+          <div className="about-side lg:col-span-5 space-y-6">
             <div className="surface p-6">
               <div className="label-caps mb-4">Languages</div>
               <div className="flex flex-wrap gap-2">
                 {LANGUAGES.map((lang) => (
                   <span
                     key={lang}
-                    className="px-3 py-1.5 text-sm rounded-full border border-[var(--border-subtle)] text-[var(--text-secondary)] bg-[var(--bg-elevated)]"
+                    className="px-3 py-1.5 text-sm rounded-full border border-[var(--border-subtle)] text-[var(--text-secondary)] bg-[var(--bg-soft)]"
                   >
                     {lang}
                   </span>
@@ -201,7 +204,10 @@ export function About() {
 
             <div className="surface p-6">
               <div className="label-caps mb-4">Education</div>
-              <div className="font-serif text-[var(--text-primary)] text-lg" style={{ fontWeight: 500 }}>
+              <div
+                className="font-serif text-[var(--text-primary)] text-lg"
+                style={{ fontWeight: 600 }}
+              >
                 Diploma, Mechatronics &amp; Automation
               </div>
               <div className="text-sm text-[var(--text-secondary)] mt-1">
@@ -212,11 +218,11 @@ export function About() {
               </div>
             </div>
 
-            <div className="surface p-6">
+            <div className="surface-glow p-6">
               <div className="label-caps mb-4">Currently</div>
               <div className="text-[var(--text-primary)] text-base">
                 Exploring a{" "}
-                <span className="text-[var(--accent-copper)]">
+                <span className="text-[var(--accent-blue)] font-semibold">
                   Generative AI Engineer
                 </span>{" "}
                 role with a proptech AI company in Oslo.
@@ -228,38 +234,56 @@ export function About() {
           </div>
         </div>
 
-        {/* Experience timeline */}
+        {/* Experience timeline with imagery */}
         <div className="mt-20">
           <div className="label-caps mb-8 flex items-center gap-3">
-            <span className="inline-block w-8 h-px bg-[var(--accent-copper)]" />
+            <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
             Experience
           </div>
           <div className="exp-list space-y-0">
             {EXPERIENCE.map((exp, i) => (
               <div
                 key={i}
-                className="exp-item grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-8 py-6 border-t border-[var(--border-subtle)]"
+                className="exp-item grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-8 border-t border-[var(--border-subtle)]"
               >
                 <div className="md:col-span-4">
-                  <div className="text-[var(--text-muted)] text-sm">
+                  <div className="text-[var(--accent-blue)] text-sm font-mono font-medium">
                     {exp.period}
+                  </div>
+                  <div
+                    className="font-serif text-[var(--text-primary)] text-xl mt-2"
+                    style={{ fontWeight: 600 }}
+                  >
+                    {exp.role}
+                  </div>
+                  <div className="text-[var(--text-secondary)] text-sm mt-1">
+                    {exp.org}
                   </div>
                 </div>
                 <div className="md:col-span-8">
-                  <div className="font-serif text-[var(--text-primary)] text-xl" style={{ fontWeight: 500 }}>
-                    {exp.role}
-                  </div>
-                  <div className="text-[var(--accent-amber)] text-sm mt-1">
-                    {exp.org}
-                  </div>
-                  <ul className="mt-3 space-y-1.5 text-[var(--text-secondary)] text-sm">
+                  <ul className="space-y-2 text-[var(--text-secondary)] text-sm mb-0">
                     {exp.points.map((p, j) => (
-                      <li key={j} className="flex gap-2">
-                        <span className="text-[var(--accent-copper)] mt-1.5 inline-block w-1 h-1 rounded-full bg-[var(--accent-copper)] shrink-0" />
-                        <span style={{ lineHeight: 1.6 }}>{p}</span>
+                      <li key={j} className="flex gap-2.5">
+                        <span className="text-[var(--accent-blue)] mt-1.5 inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent-blue)] shrink-0" />
+                        <span style={{ lineHeight: 1.65 }}>{p}</span>
                       </li>
                     ))}
                   </ul>
+                  {exp.image && (
+                    <figure className="exp-image mt-5">
+                      <div className="shot-frame">
+                        <img
+                          src={exp.image}
+                          alt={exp.imageAlt}
+                          className="w-full h-auto block"
+                          style={{ aspectRatio: "16 / 9", objectFit: "cover" }}
+                        />
+                        <figcaption className="px-4 py-3 border-t border-[var(--border-subtle)] text-xs text-[var(--text-muted)]">
+                          {exp.imageCaption}
+                        </figcaption>
+                      </div>
+                    </figure>
+                  )}
                 </div>
               </div>
             ))}

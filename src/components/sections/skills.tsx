@@ -104,10 +104,7 @@ export function Skills() {
         duration: 1.0,
         ease: "power4.out",
         stagger: 0.08,
-        scrollTrigger: {
-          trigger: ".skills-headline",
-          start: "top 82%",
-        },
+        scrollTrigger: { trigger: ".skills-headline", start: "top 82%" },
       });
 
       gsap.from(".skills-cluster", {
@@ -116,10 +113,7 @@ export function Skills() {
         duration: 0.7,
         ease: "power3.out",
         stagger: 0.1,
-        scrollTrigger: {
-          trigger: ".skills-grid",
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: ".skills-grid", start: "top 80%" },
       });
 
       gsap.from(".skills-tag", {
@@ -128,10 +122,7 @@ export function Skills() {
         duration: 0.4,
         ease: "power2.out",
         stagger: 0.03,
-        scrollTrigger: {
-          trigger: ".skills-grid",
-          start: "top 75%",
-        },
+        scrollTrigger: { trigger: ".skills-grid", start: "top 75%" },
       });
     },
     { scope: ref, dependencies: [reduced] },
@@ -141,30 +132,26 @@ export function Skills() {
     <section
       id="skills"
       ref={ref}
-      className="relative py-24 md:py-32"
-      style={{
-        background:
-          "linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-surface) 50%, var(--bg-deep) 100%)",
-      }}
+      className="relative py-24 md:py-32 bg-[var(--bg-base)]"
     >
       <div className="mx-auto max-w-[1200px] px-6 lg:px-10">
         <div className="label-caps mb-8 flex items-center gap-3">
-          <span className="inline-block w-8 h-px bg-[var(--accent-copper)]" />
+          <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
           Capabilities
         </div>
 
         <h2
           className="skills-headline font-serif text-[var(--text-primary)] leading-[1.05] mb-16 max-w-3xl"
           style={{
-            fontSize: "clamp(2rem, 4vw, 3.5rem)",
-            fontWeight: 500,
+            fontSize: "clamp(2rem, 4vw, 3.25rem)",
+            fontWeight: 600,
             letterSpacing: "-0.02em",
           }}
         >
           <span className="line-mask block">
             <span className="line block">
               What I bring to a{" "}
-              <span className="text-[var(--accent-copper)]">
+              <span className="text-[var(--accent-blue)]">
                 generative AI engineer
               </span>{" "}
               role.
@@ -176,10 +163,11 @@ export function Skills() {
           {CLUSTERS.map((c) => (
             <div key={c.title} className="skills-cluster">
               <div className="flex items-baseline gap-3 mb-4 pb-3 border-b border-[var(--border-subtle)]">
-                <span className="font-mono text-xs text-[var(--accent-copper)]">
-                  ◆
-                </span>
-                <h3 className="font-serif text-[var(--text-primary)] text-lg" style={{ fontWeight: 500 }}>
+                <span className="font-mono text-xs text-[var(--accent-blue)]">◆</span>
+                <h3
+                  className="font-serif text-[var(--text-primary)] text-lg"
+                  style={{ fontWeight: 600 }}
+                >
                   {c.title}
                 </h3>
               </div>

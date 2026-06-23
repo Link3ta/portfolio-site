@@ -43,10 +43,7 @@ export function Architecture() {
         duration: 1.0,
         ease: "power4.out",
         stagger: 0.08,
-        scrollTrigger: {
-          trigger: ".arch-headline",
-          start: "top 82%",
-        },
+        scrollTrigger: { trigger: ".arch-headline", start: "top 82%" },
       });
 
       gsap.from(".arch-card", {
@@ -55,13 +52,9 @@ export function Architecture() {
         duration: 0.8,
         ease: "power3.out",
         stagger: 0.15,
-        scrollTrigger: {
-          trigger: ".arch-grid",
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: ".arch-grid", start: "top 80%" },
       });
 
-      // Subtle parallax on the background grid
       gsap.to(".arch-bg", {
         y: -60,
         ease: "none",
@@ -80,30 +73,30 @@ export function Architecture() {
     <section
       id="architecture"
       ref={ref}
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-24 md:py-32 overflow-hidden bg-[var(--bg-soft)]"
     >
       <div
-        className="arch-bg absolute inset-0 grid-bg opacity-40 pointer-events-none"
+        className="arch-bg absolute inset-0 dot-grid opacity-40 pointer-events-none"
         aria-hidden
       />
       <div className="relative mx-auto max-w-[1200px] px-6 lg:px-10">
         <div className="label-caps mb-8 flex items-center gap-3">
-          <span className="inline-block w-8 h-px bg-[var(--accent-copper)]" />
+          <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
           Architecture
         </div>
 
         <h2
           className="arch-headline font-serif text-[var(--text-primary)] leading-[1.05] mb-16 max-w-3xl"
           style={{
-            fontSize: "clamp(2rem, 4vw, 3.5rem)",
-            fontWeight: 500,
+            fontSize: "clamp(2rem, 4vw, 3.25rem)",
+            fontWeight: 600,
             letterSpacing: "-0.02em",
           }}
         >
           <span className="line-mask block">
             <span className="line block">
               Pipelines designed for{" "}
-              <span className="text-[var(--accent-copper)]">
+              <span className="text-[var(--accent-blue)]">
                 real-world failure modes.
               </span>
             </span>
@@ -114,18 +107,18 @@ export function Architecture() {
           {CARDS.map((c) => (
             <div
               key={c.index}
-              className="arch-card surface p-6 lg:p-8 group hover:border-[var(--accent-copper)] transition-colors duration-300 flex flex-col"
+              className="arch-card surface p-6 lg:p-8 group hover:border-[var(--accent-blue)] transition-all duration-300 flex flex-col hover:-translate-y-1"
               style={{ minHeight: "320px" }}
             >
               <div className="flex items-center justify-between mb-6">
-                <span className="font-mono text-sm text-[var(--accent-copper)]">
+                <span className="font-mono text-sm text-[var(--accent-blue)]">
                   {c.index}
                 </span>
-                <span className="block w-6 h-px bg-[var(--border-strong)] group-hover:bg-[var(--accent-copper)] group-hover:w-10 transition-all duration-300" />
+                <span className="block w-6 h-px bg-[var(--border-strong)] group-hover:bg-[var(--accent-blue)] group-hover:w-10 transition-all duration-300" />
               </div>
               <h3
                 className="font-serif text-[var(--text-primary)] mb-4"
-                style={{ fontSize: "1.5rem", fontWeight: 500, lineHeight: 1.2 }}
+                style={{ fontSize: "1.5rem", fontWeight: 600, lineHeight: 1.2 }}
               >
                 {c.title}
               </h3>
@@ -139,7 +132,7 @@ export function Architecture() {
                 {c.tags.map((t) => (
                   <span
                     key={t}
-                    className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-[var(--border-subtle)] text-[var(--text-muted)]"
+                    className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded border border-[var(--border-subtle)] text-[var(--text-muted)] bg-[var(--bg-soft)]"
                   >
                     {t}
                   </span>
