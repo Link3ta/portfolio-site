@@ -4,14 +4,13 @@ export const LOCALE_STORAGE_KEY = "zavian-locale";
 
 export const LOCALES: {
   code: Locale;
-  flag: string;
   country: string;
   htmlLang: string;
 }[] = [
-  { code: "no", flag: "🇳🇴", country: "Norway", htmlLang: "nb" },
-  { code: "sv", flag: "🇸🇪", country: "Sweden", htmlLang: "sv" },
-  { code: "es", flag: "🇪🇸", country: "Spain", htmlLang: "es" },
-  { code: "en", flag: "🇺🇸", country: "America", htmlLang: "en" },
+  { code: "no", country: "Norway", htmlLang: "nb" },
+  { code: "sv", country: "Sweden", htmlLang: "sv" },
+  { code: "es", country: "Spain", htmlLang: "es" },
+  { code: "en", country: "America", htmlLang: "en" },
 ];
 
 export interface CapabilityMessage {
@@ -155,5 +154,16 @@ export interface Messages {
   };
   footer: {
     copyright: string;
+    templateBefore: string;
+    skillLink: string;
+    templateMid: string;
+    oneshotLink: string;
+    templateAfter: string;
+    githubLink: string;
+    templateEnd: string;
+    oneshotBefore: string;
+    zaiLink: string;
+    oneshotMid: string;
+    sourceLink: string;
   };
 }

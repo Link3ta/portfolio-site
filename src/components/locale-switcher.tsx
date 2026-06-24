@@ -2,13 +2,14 @@
 
 import { LOCALES } from "@/lib/i18n";
 import { useLocale } from "@/lib/i18n/locale-provider";
+import { WavyFlag } from "@/components/wavy-flag";
 
 export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
   const { locale, setLocale, t } = useLocale();
 
   return (
     <div
-      className={`flex items-center gap-1.5 shrink-0 ${compact ? "" : "ml-1"}`}
+      className={`flex items-center gap-2 shrink-0 ${compact ? "" : "ml-1"}`}
       role="group"
       aria-label={t.nav.switchTo}
     >
@@ -17,7 +18,7 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
           {t.nav.clientsIn}
         </span>
       )}
-      <div className="flex items-center gap-0.5">
+      <div className="locale-flag-row">
         {LOCALES.map((item) => {
           const active = locale === item.code;
           return (
@@ -30,9 +31,7 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
               aria-pressed={active}
               title={item.country}
             >
-              <span className="text-base leading-none" aria-hidden>
-                {item.flag}
-              </span>
+              <WavyFlag locale={item.code} />
             </button>
           );
         })}

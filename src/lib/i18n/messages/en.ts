@@ -219,5 +219,16 @@ export const en: Messages = {
   },
   footer: {
     copyright: "© 2026 Anders Ljungstedt · zavian.ai",
+    templateBefore: "Like this template? Get",
+    skillLink: "SKILL.md",
+    templateMid: "and the",
+    oneshotLink: "one-shot prompt",
+    templateAfter: "on",
+    githubLink: "GitHub",
+    templateEnd: ".",
+    oneshotBefore: "Oneshotted with",
+    zaiLink: "z.ai GLM 5.2",
+    oneshotMid: "·",
+    sourceLink: "portfolio source",
   },
 };
