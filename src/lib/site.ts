@@ -1,4 +1,4 @@
-export const SITE_URL = "https://zavian.ai";
+export const SITE_URL = "https://www.zavian.ai";
 export const SITE_NAME = "zavian.ai";
 export const GITHUB_PORTFOLIO_REPO =
   process.env.NEXT_PUBLIC_GITHUB_REPO_URL ?? "https://github.com/Link3ta/portfolio-site";
