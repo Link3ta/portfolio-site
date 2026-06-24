@@ -5,7 +5,8 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { ArrowLeft, ArrowRight, Linkedin, MicOff, Phone, Video, Volume2 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { ArrowRight, Calendar, Linkedin, MicOff, Phone, Video, Volume2 } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -16,11 +17,12 @@ export function Hero() {
   const { t } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const isMobile = useIsMobile();
   const [portraitOk, setPortraitOk] = useState(true);
 
   useGSAP(
     () => {
-      if (reduced) return;
+      if (reduced || isMobile) return;
 
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
@@ -33,7 +35,7 @@ export function Hero() {
         .from(".hero-ctas > *", { y: 6, opacity: 0, duration: 0.3, stagger: 0.06 }, "-=0.2")
         .from(".hero-phone-wrap", { y: 16, opacity: 0, duration: 0.45 }, "-=0.3");
     },
-    { scope: containerRef, dependencies: [reduced] },
+    { scope: containerRef, dependencies: [reduced, isMobile] },
   );
 
   const scrollTo = (href: string) => {
@@ -48,8 +50,8 @@ export function Hero() {
     >
       <div className="absolute inset-0 dot-grid opacity-40" aria-hidden />
 
-      {/* Ambient real estate photography — Marbella left, Florida right */}
-      <div className="hero-re-bg" aria-hidden>
+      {/* Ambient collage — desktop only */}
+      <div className="hero-re-bg hidden lg:block" aria-hidden>
         <div className="hero-re-cluster hero-re-cluster-left">
           <img src="/assets/hero-real-estate.jpg" alt="" className="hero-re-tile hero-re-tile-a" width={420} height={280} loading="lazy" decoding="async" />
           <img src="/assets/hero-marbella-villa.jpg" alt="" className="hero-re-tile hero-re-tile-b" width={300} height={200} loading="lazy" decoding="async" />
@@ -64,7 +66,7 @@ export function Hero() {
       </div>
 
       <div
-        className="hero-glow glow-blob"
+        className="hero-glow glow-blob hidden lg:block"
         aria-hidden
         style={{
           top: "-10%",
@@ -112,7 +114,7 @@ export function Hero() {
               {t.hero.sub}
             </p>
 
-            <div className="hero-ctas mt-8 flex flex-wrap items-center gap-3">
+            <div className="hero-ctas mt-6 lg:mt-8 flex flex-wrap items-center gap-3">
               <button onClick={() => scrollTo("#work")} className="btn-blue">
                 {t.hero.viewProjects}
                 <ArrowRight size={16} />
@@ -127,10 +129,47 @@ export function Hero() {
                 LinkedIn
               </a>
             </div>
+
+            {/* Mobile — lightweight iOS-style contact sheet (no phone mock, no bg images) */}
+            <div className="hero-mobile-cta lg:hidden mt-6">
+              <div className="rounded-2xl border border-[var(--border-subtle)] bg-white overflow-hidden shadow-sm">
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3.5 text-[var(--text-primary)] hover:bg-[var(--bg-soft)] transition-colors"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent-blue-soft)] text-[var(--accent-blue)]">
+                    <Calendar size={18} />
+                  </span>
+                  <span className="font-medium text-sm">{t.hero.phoneBookNow}</span>
+                </a>
+                <a
+                  href={PHONE_TEL}
+                  className="flex items-center gap-3 px-4 py-3.5 border-t border-[var(--border-subtle)] text-[var(--text-primary)] hover:bg-[var(--bg-soft)] transition-colors"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--bg-soft)] text-[var(--text-secondary)]">
+                    <Phone size={18} />
+                  </span>
+                  <span className="font-medium text-sm">{PHONE_DISPLAY}</span>
+                </a>
+                <a
+                  href={LINKEDIN}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3.5 border-t border-[var(--border-subtle)] text-[var(--text-primary)] hover:bg-[var(--bg-soft)] transition-colors"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--bg-soft)] text-[var(--text-secondary)]">
+                    <Linkedin size={18} />
+                  </span>
+                  <span className="font-medium text-sm">{t.hero.phoneLinkedIn}</span>
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Right — Teams-style phone */}
-          <div className="hero-phone-wrap lg:col-span-5 flex justify-center lg:justify-end relative z-[1]">
+          {/* Desktop — Teams-style phone mock */}
+          <div className="hero-phone-wrap hidden lg:flex lg:col-span-5 justify-center lg:justify-end relative z-[1]">
             <div className="iphone-device" aria-label={t.hero.phoneAria}>
               <span className="iphone-side-btn iphone-side-silent" aria-hidden />
               <span className="iphone-side-btn iphone-side-vol-up" aria-hidden />
@@ -153,7 +192,6 @@ export function Hero() {
 
                   <div className="hero-phone-screen">
                     <div className="hero-phone-header">
-                      <ArrowLeft size={18} className="opacity-80" aria-hidden />
                       <span>{t.hero.phoneMeeting}</span>
                     </div>
 

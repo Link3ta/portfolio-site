@@ -171,6 +171,8 @@ export function ProjectTimeline() {
                           alt={copy.imageAlt ?? project.name}
                           className="w-full h-auto block"
                           style={{ aspectRatio: "16 / 10", objectFit: "cover" }}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     ) : (
@@ -198,7 +200,7 @@ export function ProjectTimeline() {
                         </div>
 
                         {project.countyImages && project.countyImages.length > 0 && (
-                          <div>
+                          <div className="hidden md:block">
                             <div className="label-caps mb-3 flex items-center gap-2">
                               <MapPin size={12} className="text-[var(--accent-blue)]" />
                               {w.countyCoverage}
@@ -213,6 +215,8 @@ export function ProjectTimeline() {
                                     src={c.src}
                                     alt={`${c.name}, ${w.countyState}`}
                                     className="w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
                                   />
                                   <div
                                     className="absolute inset-0 pointer-events-none"
