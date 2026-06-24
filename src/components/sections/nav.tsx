@@ -1,32 +1,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CALENDLY_URL } from "@/lib/site";
+import { useLocale } from "@/lib/i18n/locale-provider";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 
 const LINKS = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Architecture", href: "#architecture" },
-  { label: "Capabilities", href: "#skills" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { key: "work" as const, href: "#work" },
+  { key: "about" as const, href: "#about" },
+  { key: "capabilities" as const, href: "#skills" },
+  { key: "contact" as const, href: "#contact" },
 ];
 
-// Calendly / cal.com booking link — adjust to the user's real scheduling URL
-const CALENDLY_URL = "https://calendly.com/anders-ljungstedt/intro";
-
 export function Nav() {
+  const { t } = useLocale();
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [mounted]);
 
   useEffect(() => {
+    if (!mounted) return;
     const sections = LINKS.map((l) => document.querySelector(l.href)).filter(
       Boolean,
     ) as Element[];
@@ -45,7 +51,7 @@ export function Nav() {
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, []);
+  }, [mounted]);
 
   const handleNav = (href: string) => {
     setMenuOpen(false);
@@ -67,30 +73,31 @@ export function Nav() {
           : "1px solid transparent",
       }}
     >
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-10 flex items-center justify-between h-16 md:h-20">
-        {/* Name wordmark — prominent */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-baseline gap-2 group"
-          aria-label="Back to top"
-        >
-          <span
-            className="font-serif text-[var(--text-primary)] tracking-tight leading-none"
-            style={{
-              fontSize: "clamp(1.15rem, 2vw, 1.5rem)",
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
-            }}
+      <div className="mx-auto max-w-[1200px] px-6 lg:px-10 flex items-center justify-between h-16 md:h-20 gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex items-baseline gap-2 group min-w-0"
+            aria-label="Back to top"
           >
-            Anders Ljungstedt
-          </span>
-          <span className="hidden sm:inline text-[11px] font-mono text-[var(--accent-blue)] uppercase tracking-wider">
-            · zavian.ai
-          </span>
-        </button>
+            <span
+              className="font-serif text-[var(--text-primary)] tracking-tight leading-none truncate"
+              style={{
+                fontSize: "clamp(1rem, 2vw, 1.5rem)",
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Anders Ljungstedt
+            </span>
+            <span className="hidden sm:inline text-[11px] font-mono text-[var(--accent-blue)] uppercase tracking-wider shrink-0">
+              · zavian.ai
+            </span>
+          </button>
+          <LocaleSwitcher />
+        </div>
 
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-7">
+        <div className="hidden lg:flex items-center gap-7 shrink-0">
           <ul className="flex items-center gap-6">
             {LINKS.map((l) => (
               <li key={l.href}>
@@ -98,7 +105,7 @@ export function Nav() {
                   onClick={() => handleNav(l.href)}
                   className={`nav-link ${active === l.href ? "active" : ""}`}
                 >
-                  {l.label}
+                  {t.nav[l.key]}
                 </button>
               </li>
             ))}
@@ -110,13 +117,12 @@ export function Nav() {
             className="btn-blue"
             style={{ padding: "0.55rem 1.1rem", minHeight: 40, fontSize: "0.875rem" }}
           >
-            Book a meeting
+            {t.nav.bookMeeting}
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
-          className="lg:hidden flex flex-col gap-1.5 p-2 -mr-2"
+          className="lg:hidden flex flex-col gap-1.5 p-2 -mr-2 shrink-0"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
@@ -138,11 +144,10 @@ export function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       <div
         className="lg:hidden overflow-hidden transition-all duration-300"
         style={{
-          maxHeight: menuOpen ? "420px" : "0px",
+          maxHeight: menuOpen ? "480px" : "0px",
           backgroundColor: "rgba(255, 255, 255, 0.98)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
@@ -156,7 +161,7 @@ export function Nav() {
                 onClick={() => handleNav(l.href)}
                 className={`nav-link text-base ${active === l.href ? "active" : ""}`}
               >
-                {l.label}
+                {t.nav[l.key]}
               </button>
             </li>
           ))}
@@ -167,7 +172,7 @@ export function Nav() {
               rel="noopener noreferrer"
               className="btn-blue w-full"
             >
-              Book a meeting today
+              {t.nav.bookMeetingMobile}
             </a>
           </li>
         </ul>

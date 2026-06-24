@@ -4,10 +4,9 @@ import { ReactLenis, useLenis } from "lenis/react";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+gsap.registerPlugin(ScrollTrigger);
 
 function LenisScrollTriggerSync() {
   const lenis = useLenis();
@@ -36,19 +35,17 @@ function LenisScrollTriggerSync() {
 }
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const reduced = useReducedMotion();
+
   return (
     <ReactLenis
       root
       options={{
-        lerp: 0.1,
-        duration: 1.1,
-        smoothWheel: true,
+        lerp: reduced ? 1 : 0.1,
+        duration: reduced ? 0 : 1.1,
+        smoothWheel: !reduced,
         wheelMultiplier: 1,
         touchMultiplier: 1.5,
-        ...(typeof window !== "undefined" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? { lerp: 1, duration: 0, smoothWheel: false }
-          : {}),
       }}
     >
       <LenisScrollTriggerSync />

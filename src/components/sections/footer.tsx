@@ -1,4 +1,10 @@
+"use client";
+
+import { useLocale } from "@/lib/i18n/locale-provider";
+
 export function Footer() {
+  const { t } = useLocale();
+
   return (
     <footer className="relative border-t border-[var(--border-subtle)] bg-[var(--bg-base)] mt-auto">
       <div className="mx-auto max-w-[1200px] px-6 lg:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -12,7 +18,7 @@ export function Footer() {
           <span className="text-[var(--text-muted)] text-sm">· zavian.ai</span>
         </div>
         <div className="text-xs text-[var(--text-muted)] font-mono uppercase tracking-wider">
-          © 2026 Anders Ljungstedt · zavian.ai
+          {t.footer.copyright}
         </div>
       </div>
     </footer>

@@ -5,15 +5,16 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { Calendar, Mail, Linkedin, ArrowUpRight, Clock, Video } from "lucide-react";
+import { useLocale } from "@/lib/i18n/locale-provider";
+import { Mail, Linkedin, ArrowUpRight, Clock, Video } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const EMAIL = "anders.ljungstedt1@gmail.com";
-const LINKEDIN = "https://www.linkedin.com/in/anders-ljungstedt-7a1723176/";
-const CALENDLY_URL = "https://calendly.com/anders-ljungstedt/intro";
+import { CALENDLY_URL, EMAIL, LINKEDIN, PHONE_DISPLAY } from "@/lib/site";
 
 export function Contact() {
+  const { t } = useLocale();
+  const c = t.contact;
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
@@ -38,13 +39,12 @@ export function Contact() {
         scrollTrigger: { trigger: ".contact-body", start: "top 82%" },
       });
 
-      gsap.from(".contact-card", {
+      gsap.from(".contact-bar", {
         y: 28,
         opacity: 0,
         duration: 0.7,
         ease: "power3.out",
-        stagger: 0.1,
-        scrollTrigger: { trigger: ".contact-grid", start: "top 85%" },
+        scrollTrigger: { trigger: ".contact-bar", start: "top 85%" },
       });
 
       gsap.to(".contact-glow", {
@@ -82,25 +82,25 @@ export function Contact() {
       <div className="relative mx-auto max-w-[1000px] px-6 lg:px-10 text-center">
         <div className="label-caps mb-8 flex items-center justify-center gap-3">
           <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
-          Contact
+          {c.label}
           <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
         </div>
 
         <h2
-          className="contact-headline font-serif text-[var(--text-primary)] leading-[1.05] mb-8"
+          className="contact-headline font-serif text-[var(--text-primary)] leading-[1.12] mb-8"
           style={{
             fontSize: "clamp(2.25rem, 6vw, 4.5rem)",
             fontWeight: 600,
             letterSpacing: "-0.02em",
           }}
         >
-          <span className="line-mask block">
-            <span className="line block">Let&apos;s build</span>
+          <span className="line-mask line-mask-descenders block">
+            <span className="line block">{c.line1}</span>
           </span>
-          <span className="line-mask block">
+          <span className="line-mask line-mask-descenders block">
             <span className="line block">
-              <span className="text-[var(--accent-blue)]">proptech AI</span>{" "}
-              that ships.
+              <span className="text-[var(--accent-blue)]">{c.line2Highlight}</span>
+              {c.line2After}
             </span>
           </span>
         </h2>
@@ -109,60 +109,14 @@ export function Contact() {
           className="contact-body text-[var(--text-secondary)] max-w-xl mx-auto"
           style={{ fontSize: "1.0625rem", lineHeight: 1.75 }}
         >
-          I&apos;m based in{" "}
-          <strong className="text-[var(--text-primary)] font-semibold">Oslo</strong>{" "}
-          and exploring a{" "}
-          <strong className="text-[var(--text-primary)] font-semibold">
-            Generative AI Engineer
-          </strong>{" "}
-          role with a proptech AI company. Reach out directly or via{" "}
-          <span className="text-[var(--accent-blue)] font-medium">
-            Ladda / Laddwho
-          </span>
-          .
+          {c.bodyBefore}
+          <strong className="text-[var(--text-primary)] font-semibold">{c.bodyCity}</strong>
+          {c.bodyMid}
+          <strong className="text-[var(--text-primary)] font-semibold">{c.bodyRole}</strong>
+          {c.bodyAfter}
         </p>
 
-        {/* Contact cards */}
-        <div className="contact-grid mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-          <a
-            href={CALENDLY_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-card btn-blue flex-col py-6 px-4"
-            style={{ borderRadius: 14, minHeight: "auto" }}
-          >
-            <Calendar size={22} className="mb-2" />
-            <div className="font-semibold text-sm">Book a meeting</div>
-            <div className="text-white/80 text-xs mt-1">30 min intro · cal.com</div>
-          </a>
-
-          <a
-            href={`mailto:${EMAIL}`}
-            className="contact-card btn-ghost flex-col py-6 px-4"
-            style={{ borderRadius: 14, minHeight: "auto" }}
-          >
-            <Mail size={22} className="mb-2" />
-            <div className="font-semibold text-sm">Email me</div>
-            <div className="text-[var(--text-muted)] text-xs mt-1 truncate w-full">
-              {EMAIL}
-            </div>
-          </a>
-
-          <a
-            href={LINKEDIN}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-card btn-ghost flex-col py-6 px-4"
-            style={{ borderRadius: 14, minHeight: "auto" }}
-          >
-            <Linkedin size={22} className="mb-2" />
-            <div className="font-semibold text-sm">LinkedIn</div>
-            <div className="text-[var(--text-muted)] text-xs mt-1">/anders-ljungstedt</div>
-          </a>
-        </div>
-
-        {/* Teams-style meeting preview strip */}
-        <div className="contact-card mt-8 booking-card max-w-2xl mx-auto p-5 flex items-center gap-4 text-left">
+        <div className="contact-card contact-bar mt-12 booking-card max-w-2xl mx-auto p-5 flex items-center gap-4 text-left">
           <div
             className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
             style={{
@@ -172,12 +126,10 @@ export function Contact() {
             <Video size={22} className="text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-[var(--text-primary)] font-semibold text-sm">
-              Google Meet / Teams · Anders Ljungstedt
-            </div>
+            <div className="text-[var(--text-primary)] font-semibold text-sm">{c.meetTitle}</div>
             <div className="text-[var(--text-muted)] text-xs flex items-center gap-1.5 mt-0.5">
               <Clock size={12} />
-              30 minutes · Oslo time
+              {c.meetDuration}
             </div>
           </div>
           <a
@@ -187,13 +139,32 @@ export function Contact() {
             className="btn-blue shrink-0"
             style={{ padding: "0.55rem 1.1rem", minHeight: 40 }}
           >
-            Join
+            {c.bookNow}
             <ArrowUpRight size={15} />
           </a>
         </div>
 
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm">
+          <a
+            href={`mailto:${EMAIL}`}
+            className="inline-flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-blue)] transition-colors"
+          >
+            <Mail size={15} />
+            {EMAIL}
+          </a>
+          <a
+            href={LINKEDIN}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--accent-blue)] transition-colors"
+          >
+            <Linkedin size={15} />
+            LinkedIn
+          </a>
+        </div>
+
         <div className="mt-8 text-sm text-[var(--text-muted)]">
-          +46 761 61 38 73 · zavian.ai
+          {PHONE_DISPLAY} · {c.footerNote}
         </div>
       </div>
     </section>

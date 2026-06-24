@@ -1,25 +1,27 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { Calendar, Video, Clock, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Linkedin, MicOff, Phone, Video, Volume2 } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const CALENDLY_URL = "https://calendly.com/anders-ljungstedt/intro";
+import { CALENDLY_URL, LINKEDIN, PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
+import { useLocale } from "@/lib/i18n/locale-provider";
 
 export function Hero() {
+  const { t } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const [portraitOk, setPortraitOk] = useState(true);
 
   useGSAP(
     () => {
       if (reduced) {
-        gsap.set(".hero-line-inner", { y: 0, opacity: 1 });
-        gsap.set(".hero-sub, .hero-meta, .hero-ctas, .hero-portrait, .hero-booking", {
+        gsap.set(".hero-line-inner, .hero-sub, .hero-ctas, .hero-phone-wrap", {
           opacity: 1,
           y: 0,
         });
@@ -28,270 +30,224 @@ export function Hero() {
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      tl.from(".hero-eyebrow", { y: 20, opacity: 0, duration: 0.8 })
+      tl.from(
+        ".hero-line-inner",
+        { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.1 },
+        0,
+      )
+        .from(".hero-sub", { y: 20, opacity: 0, duration: 0.8 }, "-=0.5")
+        .from(".hero-ctas > *", { y: 16, opacity: 0, duration: 0.6, stagger: 0.1 }, "-=0.4")
         .from(
-          ".hero-line-inner",
-          { yPercent: 110, opacity: 0, duration: 1.2, stagger: 0.1 },
-          "-=0.4",
-        )
-        .from(".hero-sub", { y: 24, opacity: 0, duration: 0.9 }, "-=0.5")
-        .from(".hero-meta", { y: 16, opacity: 0, duration: 0.7 }, "-=0.5")
-        .from(
-          ".hero-ctas > *",
-          { y: 20, opacity: 0, duration: 0.7, stagger: 0.12 },
-          "-=0.4",
-        )
-        .from(
-          ".hero-side > *",
-          { y: 40, opacity: 0, duration: 1.0, stagger: 0.15, ease: "power3.out" },
-          "-=0.9",
+          ".hero-phone-wrap",
+          { y: 40, opacity: 0, duration: 1.0, ease: "power3.out" },
+          "-=0.7",
         );
 
-      // Glow pulse
       gsap.to(".hero-glow", {
-        scale: 1.15,
-        opacity: 0.7,
+        scale: 1.12,
+        opacity: 0.65,
         duration: 6,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
-      });
-
-      // Parallax fade on scroll
-      gsap.to(".hero-content", {
-        y: -60,
-        opacity: 0.5,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.6,
-        },
-      });
-
-      gsap.to(".hero-portrait-img", {
-        y: -30,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.8,
-        },
       });
     },
     { scope: containerRef, dependencies: [reduced] },
   );
 
   const scrollTo = (href: string) => {
-    document.querySelector(href)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16"
+      className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-16"
     >
-      {/* Background */}
-      <div className="absolute inset-0 dot-grid opacity-50" aria-hidden />
+      <div className="absolute inset-0 dot-grid opacity-40" aria-hidden />
+
+      {/* Ambient real estate photography — Marbella left, Florida right */}
+      <div className="hero-re-bg" aria-hidden>
+        <div className="hero-re-cluster hero-re-cluster-left">
+          <img src="/assets/hero-real-estate.jpg" alt="" className="hero-re-tile hero-re-tile-a" />
+          <img src="/assets/hero-marbella-villa.jpg" alt="" className="hero-re-tile hero-re-tile-b" />
+          <img src="/assets/hero-marbella-estate.jpg" alt="" className="hero-re-tile hero-re-tile-c" />
+        </div>
+        <div className="hero-re-cluster hero-re-cluster-right">
+          <img src="/assets/hero-florida-miami.jpg" alt="" className="hero-re-tile hero-re-tile-d" />
+          <img src="/assets/hero-florida-downtown.jpg" alt="" className="hero-re-tile hero-re-tile-e" />
+          <img src="/assets/hero-florida-tampa.jpg" alt="" className="hero-re-tile hero-re-tile-f" />
+        </div>
+        <div className="hero-re-bg-wash" />
+      </div>
+
       <div
         className="hero-glow glow-blob"
         aria-hidden
         style={{
           top: "-10%",
-          right: "-5%",
-          width: "600px",
-          height: "600px",
+          right: "5%",
+          width: "520px",
+          height: "520px",
           background:
-            "radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0.08) 40%, transparent 70%)",
-        }}
-      />
-      <div
-        className="glow-blob"
-        aria-hidden
-        style={{
-          bottom: "-15%",
-          left: "-10%",
-          width: "500px",
-          height: "500px",
-          background:
-            "radial-gradient(circle, rgba(13, 148, 136, 0.18) 0%, transparent 70%)",
-          opacity: 0.6,
+            "radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0.06) 45%, transparent 70%)",
         }}
       />
 
-      <div className="hero-content relative mx-auto max-w-[1200px] w-full px-6 lg:px-10">
+      <div className="relative mx-auto max-w-[1200px] w-full px-6 lg:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left: name + headline + CTAs */}
-          <div className="lg:col-span-7">
-            <div className="hero-eyebrow label-caps mb-6 flex items-center gap-3">
+          {/* Left — copy */}
+          <div className="lg:col-span-7 relative z-[1]">
+            <p className="label-caps mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
-              Applied AI Engineer · Oslo
-            </div>
+              {t.hero.label}
+            </p>
 
-            {/* Name — prominent */}
-            <div className="hero-name mb-2">
-              <h2
-                className="font-serif text-[var(--text-primary)] leading-none"
-                style={{
-                  fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                  fontWeight: 600,
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                Anders Ljungstedt
-              </h2>
-            </div>
-
-            {/* Headline */}
             <h1
-              className="font-serif text-[var(--text-primary)] leading-[0.98] tracking-tight mt-2"
+              className="font-serif text-[var(--text-primary)] leading-[0.98] tracking-tight"
               style={{
-                fontSize: "clamp(2.75rem, 7vw, 5.5rem)",
+                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
               }}
             >
               <span className="line-mask block">
-                <span className="hero-line-inner line-inner block">Applied AI</span>
+                <span className="hero-line-inner line-inner block">{t.hero.line1}</span>
               </span>
               <span className="line-mask block">
                 <span className="hero-line-inner line-inner block">
-                  for{" "}
-                  <span className="text-[var(--accent-blue)]">Proptech</span>
-                </span>
-              </span>
-              <span className="line-mask block">
-                <span className="hero-line-inner line-inner block">
-                  that ships.
+                  {t.hero.line2Before}
+                  <span className="text-[var(--accent-blue)]">{t.hero.line2Highlight}</span>
+                  {t.hero.line2After}
                 </span>
               </span>
             </h1>
 
             <p
-              className="hero-sub mt-8 max-w-xl text-[var(--text-secondary)]"
-              style={{ fontSize: "clamp(1rem, 1.3vw, 1.2rem)", lineHeight: 1.7 }}
+              className="hero-sub mt-6 max-w-xl text-[var(--text-secondary)]"
+              style={{ fontSize: "clamp(1rem, 1.2vw, 1.125rem)", lineHeight: 1.75 }}
             >
-              Luxury real estate portals, vacation-rental operations, and
-              multi-county permit intelligence — built end to end with LLMs,
-              agents, and production-grade data pipelines.
+              {t.hero.sub}
             </p>
 
-            <div className="hero-meta mt-6 flex items-center gap-3 text-sm text-[var(--text-muted)] flex-wrap">
-              <span className="inline-flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[var(--accent-teal)] inline-block" />
-                Available · Oslo
-              </span>
-              <span className="text-[var(--border-strong)]">·</span>
-              <span>zavian.ai</span>
-              <span className="text-[var(--border-strong)]">·</span>
-              <span>8 months proptech craft</span>
-            </div>
-
-            <div className="hero-ctas mt-10 flex flex-wrap items-center gap-4">
-              <a
-                href={CALENDLY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-blue"
-              >
-                <Calendar size={18} />
-                Book a meeting with me today
-              </a>
-              <button onClick={() => scrollTo("#work")} className="btn-ghost">
-                View case studies
+            <div className="hero-ctas mt-8 flex flex-wrap items-center gap-3">
+              <button onClick={() => scrollTo("#work")} className="btn-blue">
+                {t.hero.viewProjects}
                 <ArrowRight size={16} />
               </button>
+              <a
+                href={LINKEDIN}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                <Linkedin size={16} />
+                LinkedIn
+              </a>
             </div>
           </div>
 
-          {/* Right: portrait + booking card */}
-          <div className="hero-side lg:col-span-5 flex flex-col gap-6">
-            {/* Portrait — forest photo, girlfriend removed */}
-            <div className="hero-portrait relative">
-              <div
-                className="relative rounded-2xl overflow-hidden border border-[var(--border-subtle)]"
-                style={{
-                  boxShadow: "var(--shadow-elevated)",
-                  aspectRatio: "4 / 5",
-                }}
-              >
-                <img
-                  src="/assets/anders-portrait.png"
-                  alt="Anders Ljungstedt portrait"
-                  className="hero-portrait-img w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 50%, rgba(15, 23, 42, 0.35) 100%)",
-                  }}
-                />
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                  <div>
-                    <div className="text-white font-serif text-lg" style={{ fontWeight: 600 }}>
-                      Anders Ljungstedt
+          {/* Right — Teams-style phone */}
+          <div className="hero-phone-wrap lg:col-span-5 flex justify-center lg:justify-end relative z-[1]">
+            <div className="iphone-device" aria-label={t.hero.phoneAria}>
+              <span className="iphone-side-btn iphone-side-silent" aria-hidden />
+              <span className="iphone-side-btn iphone-side-vol-up" aria-hidden />
+              <span className="iphone-side-btn iphone-side-vol-down" aria-hidden />
+              <span className="iphone-side-btn iphone-side-power" aria-hidden />
+
+              <div className="iphone-frame">
+                <div className="iphone-bezel">
+                  <div className="iphone-status-bar" aria-hidden>
+                    <span className="iphone-time">9:41</span>
+                    <div className="iphone-dynamic-island">
+                      <span className="iphone-island-cam" />
                     </div>
-                    <div className="text-white/80 text-xs">
-                      Applied AI Engineer · Oslo
+                    <div className="iphone-status-icons">
+                      <span className="iphone-signal" />
+                      <span className="iphone-wifi" />
+                      <span className="iphone-battery" />
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-white text-[11px] font-medium border border-white/20">
-                    Available
-                  </span>
+
+                  <div className="hero-phone-screen">
+                    <div className="hero-phone-header">
+                      <ArrowLeft size={18} className="opacity-80" aria-hidden />
+                      <span>{t.hero.phoneMeeting}</span>
+                    </div>
+
+                    <div className="hero-phone-preview">
+                      {portraitOk ? (
+                        <img
+                          src="/assets/anders-portrait.png"
+                          alt="Anders Ljungstedt"
+                          onError={() => setPortraitOk(false)}
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full flex items-center justify-center bg-[#1e293b] text-[#c8c4ef] font-serif"
+                          style={{ fontSize: "2.5rem", fontWeight: 600 }}
+                        >
+                          AL
+                        </div>
+                      )}
+                      <div className="hero-phone-preview-fade" aria-hidden />
+                      <div className="hero-phone-controls" aria-hidden>
+                        <div className="hero-phone-control">
+                          <span className="hero-phone-control-icon">
+                            <Video size={16} />
+                          </span>
+                          {t.hero.phoneVideoOn}
+                        </div>
+                        <div className="hero-phone-control">
+                          <span className="hero-phone-control-icon">
+                            <MicOff size={16} />
+                          </span>
+                          {t.hero.phoneMicOff}
+                        </div>
+                        <div className="hero-phone-control">
+                          <span className="hero-phone-control-icon">
+                            <Volume2 size={16} />
+                          </span>
+                          {t.hero.phoneSpeaker}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="hero-phone-body">
+                      <div className="hero-phone-name">Anders Ljungstedt</div>
+
+                      <a
+                        href={CALENDLY_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hero-phone-btn-primary"
+                      >
+                        {t.hero.phoneBookNow}
+                      </a>
+
+                      <a href={PHONE_TEL} className="hero-phone-btn-secondary">
+                        <Phone size={16} className="shrink-0" />
+                        {t.hero.phoneCall} {PHONE_DISPLAY}
+                      </a>
+
+                      <a
+                        href={LINKEDIN}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hero-phone-privacy"
+                      >
+                        {t.hero.phoneLinkedIn}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="iphone-home-indicator" aria-hidden />
                 </div>
               </div>
             </div>
-
-            {/* Booking card — Teams/Calendly style */}
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-booking booking-card p-5 flex items-center gap-4 group hover:border-[var(--accent-blue)] transition-colors"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                <div
-                  className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, var(--accent-blue) 0%, #4F46E5 100%)",
-                  }}
-                >
-                  <Video size={22} className="text-white" />
-                </div>
-                <div className="min-w-0">
-                  <div className="text-[var(--text-primary)] font-semibold text-sm">
-                    Intro call · 30 min
-                  </div>
-                  <div className="text-[var(--text-muted)] text-xs flex items-center gap-1.5 mt-0.5">
-                    <Clock size={12} />
-                    Google Meet / Teams · Oslo time
-                  </div>
-                </div>
-              </div>
-              <div
-                className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-[var(--accent-blue)] text-white group-hover:translate-x-0.5 transition-transform"
-                aria-hidden
-              >
-                <ArrowRight size={16} />
-              </div>
-            </a>
           </div>
         </div>
-      </div>
-
-      {/* Scroll cue */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[var(--text-muted)]">
-        <span className="label-caps text-[10px]">Scroll</span>
-        <span className="block w-px h-10 bg-gradient-to-b from-[var(--accent-blue)] to-transparent" />
       </div>
     </section>
   );

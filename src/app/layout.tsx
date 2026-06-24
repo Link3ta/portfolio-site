@@ -3,6 +3,8 @@ import { Fraunces, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { Providers } from "@/components/providers";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -26,10 +28,18 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const title = "Anders Ljungstedt — Applied AI Engineer · Proptech · Oslo";
+const description =
+  "Production LLM systems for luxury real estate and permit intelligence. Kian Estate, KE Stays, Florida Lead Portal. Oslo-based Applied AI Engineer.";
+
 export const metadata: Metadata = {
-  title: "Anders Ljungstedt — Applied AI Engineer · Proptech · Oslo",
-  description:
-    "Production LLM systems for luxury real estate and permit intelligence. Kian Estate, KE Stays, Florida Lead Portal. Oslo-based Applied AI Engineer available via Ladda.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: title,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description,
+  applicationName: SITE_NAME,
   keywords: [
     "Applied AI Engineer",
     "Generative AI",
@@ -42,20 +52,41 @@ export const metadata: Metadata = {
     "Anders Ljungstedt",
     "zavian.ai",
   ],
-  authors: [{ name: "Anders Ljungstedt" }],
+  authors: [{ name: "Anders Ljungstedt", url: SITE_URL }],
+  creator: "Anders Ljungstedt",
+  publisher: SITE_NAME,
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.svg", type: "image/svg+xml" }],
+  },
   openGraph: {
-    title: "Anders Ljungstedt — Applied AI Engineer · Proptech · Oslo",
-    description:
-      "Production LLM systems for luxury real estate and permit intelligence. Kian Estate, KE Stays, Florida Lead Portal.",
-    url: "https://zavian.ai",
-    siteName: "zavian.ai",
+    title,
+    description,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_GB",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Anders Ljungstedt — Applied AI Engineer for proptech · zavian.ai",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anders Ljungstedt — Applied AI Engineer · Proptech",
-    description:
-      "Production LLM systems for luxury real estate and permit intelligence. Oslo-based.",
+    title,
+    description,
+    images: ["/twitter-image"],
   },
 };
 
@@ -69,8 +100,10 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
-        <SmoothScroll>{children}</SmoothScroll>
-        <Toaster />
+        <Providers>
+          <SmoothScroll>{children}</SmoothScroll>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

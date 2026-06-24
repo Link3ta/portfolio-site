@@ -210,14 +210,27 @@ export function ToolIcon({ tool, size = 22 }: { tool: ToolKey; size?: number }) 
   return null;
 }
 
-export function ToolIconRow({ tools, size = 24 }: { tools: ToolKey[]; size?: number }) {
+export function ToolIconRow({
+  tools,
+  size = 24,
+  showLabels = true,
+}: {
+  tools: ToolKey[];
+  size?: number;
+  showLabels?: boolean;
+}) {
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+    <div className={`flex flex-wrap items-center ${showLabels ? "gap-x-5 gap-y-3" : "gap-2"}`}>
       {tools.map((t) => {
         const def = MAP[t];
         if (!def) return null;
         return (
-          <span key={t} className="group cs-tool-icon inline-flex flex-col items-center gap-1.5" title={def.label}>
+          <span
+            key={t}
+            className={`group cs-tool-icon inline-flex ${showLabels ? "flex-col items-center gap-1.5" : ""}`}
+            title={def.label}
+            aria-label={def.label}
+          >
             <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[var(--bg-soft)] border border-[var(--border-subtle)] transition-all duration-200 group-hover:border-[var(--accent-blue)] group-hover:bg-[var(--accent-blue-soft)] group-hover:-translate-y-0.5">
               {def.brand && BRAND_PATHS[def.brand] ? (
                 <Svg size={size} color={BRAND_PATHS[def.brand].color} path={BRAND_PATHS[def.brand].path} viewBox={BRAND_PATHS[def.brand].viewBox ?? "0 0 24 24"} />
@@ -225,9 +238,11 @@ export function ToolIconRow({ tools, size = 24 }: { tools: ToolKey[]; size?: num
                 <GenericIcon kind={def.generic} size={size} color={def.color} />
               ) : null}
             </span>
-            <span className="text-[10px] font-medium text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-              {def.label}
-            </span>
+            {showLabels && (
+              <span className="text-[10px] font-medium text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                {def.label}
+              </span>
+            )}
           </span>
         );
       })}
