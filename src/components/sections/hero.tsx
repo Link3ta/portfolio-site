@@ -20,37 +20,18 @@ export function Hero() {
 
   useGSAP(
     () => {
-      if (reduced) {
-        gsap.set(".hero-line-inner, .hero-sub, .hero-ctas, .hero-phone-wrap", {
-          opacity: 1,
-          y: 0,
-        });
-        return;
-      }
+      if (reduced) return;
 
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
       tl.from(
         ".hero-line-inner",
-        { yPercent: 110, opacity: 0, duration: 1.1, stagger: 0.1 },
+        { y: 10, opacity: 0, duration: 0.45, stagger: 0.06 },
         0,
       )
-        .from(".hero-sub", { y: 20, opacity: 0, duration: 0.8 }, "-=0.5")
-        .from(".hero-ctas > *", { y: 16, opacity: 0, duration: 0.6, stagger: 0.1 }, "-=0.4")
-        .from(
-          ".hero-phone-wrap",
-          { y: 40, opacity: 0, duration: 1.0, ease: "power3.out" },
-          "-=0.7",
-        );
-
-      gsap.to(".hero-glow", {
-        scale: 1.12,
-        opacity: 0.65,
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+        .from(".hero-sub", { y: 8, opacity: 0, duration: 0.35 }, "-=0.25")
+        .from(".hero-ctas > *", { y: 6, opacity: 0, duration: 0.3, stagger: 0.06 }, "-=0.2")
+        .from(".hero-phone-wrap", { y: 16, opacity: 0, duration: 0.45 }, "-=0.3");
     },
     { scope: containerRef, dependencies: [reduced] },
   );
@@ -63,21 +44,21 @@ export function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-16"
+      className="relative min-h-0 flex items-center overflow-hidden pt-20 pb-12 lg:pt-20 lg:pb-14"
     >
       <div className="absolute inset-0 dot-grid opacity-40" aria-hidden />
 
       {/* Ambient real estate photography — Marbella left, Florida right */}
       <div className="hero-re-bg" aria-hidden>
         <div className="hero-re-cluster hero-re-cluster-left">
-          <img src="/assets/hero-real-estate.jpg" alt="" className="hero-re-tile hero-re-tile-a" />
-          <img src="/assets/hero-marbella-villa.jpg" alt="" className="hero-re-tile hero-re-tile-b" />
-          <img src="/assets/hero-marbella-estate.jpg" alt="" className="hero-re-tile hero-re-tile-c" />
+          <img src="/assets/hero-real-estate.jpg" alt="" className="hero-re-tile hero-re-tile-a" width={420} height={280} loading="lazy" decoding="async" />
+          <img src="/assets/hero-marbella-villa.jpg" alt="" className="hero-re-tile hero-re-tile-b" width={300} height={200} loading="lazy" decoding="async" />
+          <img src="/assets/hero-marbella-estate.jpg" alt="" className="hero-re-tile hero-re-tile-c" width={240} height={160} loading="lazy" decoding="async" />
         </div>
         <div className="hero-re-cluster hero-re-cluster-right">
-          <img src="/assets/hero-florida-miami.jpg" alt="" className="hero-re-tile hero-re-tile-d" />
-          <img src="/assets/hero-florida-downtown.jpg" alt="" className="hero-re-tile hero-re-tile-e" />
-          <img src="/assets/hero-florida-tampa.jpg" alt="" className="hero-re-tile hero-re-tile-f" />
+          <img src="/assets/hero-florida-miami.jpg" alt="" className="hero-re-tile hero-re-tile-d" width={400} height={260} loading="lazy" decoding="async" />
+          <img src="/assets/hero-florida-downtown.jpg" alt="" className="hero-re-tile hero-re-tile-e" width={280} height={190} loading="lazy" decoding="async" />
+          <img src="/assets/hero-florida-tampa.jpg" alt="" className="hero-re-tile hero-re-tile-f" width={320} height={210} loading="lazy" decoding="async" />
         </div>
         <div className="hero-re-bg-wash" />
       </div>
@@ -88,8 +69,8 @@ export function Hero() {
         style={{
           top: "-10%",
           right: "5%",
-          width: "520px",
-          height: "520px",
+          width: "380px",
+          height: "380px",
           background:
             "radial-gradient(circle, rgba(37, 99, 235, 0.2) 0%, rgba(37, 99, 235, 0.06) 45%, transparent 70%)",
         }}
@@ -107,7 +88,7 @@ export function Hero() {
             <h1
               className="font-serif text-[var(--text-primary)] leading-[0.98] tracking-tight"
               style={{
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                fontSize: "clamp(1.875rem, 4vw, 3.25rem)",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
               }}
@@ -181,6 +162,9 @@ export function Hero() {
                         <img
                           src="/assets/anders-portrait.png"
                           alt="Anders Ljungstedt"
+                          loading="eager"
+                          decoding="async"
+                          fetchPriority="high"
                           onError={() => setPortraitOk(false)}
                         />
                       ) : (

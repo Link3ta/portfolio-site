@@ -262,54 +262,51 @@ html.lenis body {
   width: 100%;
 }
 
-/* Locale flag switcher — wide painted SVG banners */
+/* Locale flag switcher */
 .locale-flag-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 .locale-flag-btn {
   display: block;
-  width: 48px;
+  width: 28px;
   flex-shrink: 0;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: 4px;
-  transition: transform 0.18s ease, opacity 0.18s ease;
-  opacity: 0.85;
+  border-radius: 0;
+  transition: opacity 0.15s ease;
+  opacity: 0.75;
 }
 .locale-flag-btn:hover {
   opacity: 1;
-  transform: translateY(-1px);
 }
 .locale-flag-btn-active {
   opacity: 1;
-  transform: translateY(-1px) scale(1.04);
+  outline: 1px solid var(--accent-blue);
+  outline-offset: 1px;
 }
+.locale-flag,
 .wavy-flag {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 2;
   display: block;
-  border-radius: 2px;
-  filter: drop-shadow(0 1px 3px rgba(15, 23, 42, 0.12));
-}
-.locale-flag-btn:hover .wavy-flag {
-  filter: drop-shadow(0 2px 5px rgba(15, 23, 42, 0.15));
+  border-radius: 0;
 }
 @media (min-width: 640px) {
   .locale-flag-btn {
-    width: 52px;
+    width: 30px;
   }
 }
 @media (min-width: 1280px) {
   .locale-flag-row {
-    gap: 8px;
+    gap: 5px;
   }
   .locale-flag-btn {
-    width: 56px;
+    width: 32px;
   }
 }
 
@@ -336,7 +333,6 @@ html.lenis body {
 }
 .line-inner {
   display: block;
-  will-change: transform, opacity;
 }
 
 /* Subtle grain / grid backdrop */
@@ -533,39 +529,39 @@ html.lenis body {
 }
 .hero-re-cluster-left .hero-re-tile-a {
   left: -6%;
-  top: 8%;
-  width: min(38vw, 420px);
-  height: 52%;
+  top: 10%;
+  width: min(30vw, 320px);
+  height: 44%;
 }
 .hero-re-cluster-left .hero-re-tile-b {
   left: 2%;
-  bottom: 6%;
-  width: min(28vw, 300px);
-  height: 38%;
-}
-.hero-re-cluster-left .hero-re-tile-c {
-  left: 14%;
-  top: 42%;
+  bottom: 8%;
   width: min(22vw, 240px);
   height: 30%;
 }
+.hero-re-cluster-left .hero-re-tile-c {
+  left: 12%;
+  top: 44%;
+  width: min(18vw, 200px);
+  height: 24%;
+}
 .hero-re-cluster-right .hero-re-tile-d {
   right: -4%;
-  top: 6%;
-  width: min(36vw, 400px);
-  height: 48%;
+  top: 8%;
+  width: min(28vw, 300px);
+  height: 40%;
 }
 .hero-re-cluster-right .hero-re-tile-e {
-  right: 8%;
-  top: 38%;
-  width: min(26vw, 280px);
-  height: 34%;
+  right: 6%;
+  top: 40%;
+  width: min(20vw, 220px);
+  height: 28%;
 }
 .hero-re-cluster-right .hero-re-tile-f {
   right: 2%;
-  bottom: 4%;
-  width: min(30vw, 320px);
-  height: 40%;
+  bottom: 6%;
+  width: min(24vw, 260px);
+  height: 32%;
 }
 .hero-re-bg-wash {
   position: absolute;
@@ -620,7 +616,7 @@ html.lenis body {
 /* iPhone 17 Pro mock — cosmic orange titanium frame */
 .iphone-device {
   position: relative;
-  width: min(100%, 300px);
+  width: min(100%, 240px);
   margin-inline: auto;
   padding: 3px;
   filter: drop-shadow(0 28px 56px rgba(180, 72, 24, 0.22))
