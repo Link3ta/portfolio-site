@@ -1,7 +1,7 @@
 export const SITE_URL = "https://zavian.ai";
 export const SITE_NAME = "zavian.ai";
 export const GITHUB_PORTFOLIO_REPO =
-  process.env.NEXT_PUBLIC_GITHUB_REPO_URL ?? "https://github.com/anders-ljungstedt1/portfolio-site";
+  process.env.NEXT_PUBLIC_GITHUB_REPO_URL ?? "https://github.com/Link3ta/portfolio-site";
 export const GITHUB_SKILL_URL = `${GITHUB_PORTFOLIO_REPO}/blob/main/SKILL.md`;
 export const GITHUB_ONESHOT_URL = `${GITHUB_PORTFOLIO_REPO}/blob/main/ONESHOOT_PROMPT.md`;
 export const ZAI_GLM_URL = "https://z.ai/blog/glm-5.2";
