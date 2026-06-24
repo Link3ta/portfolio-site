@@ -82,6 +82,7 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* Left — copy */}
           <div className="lg:col-span-7 relative z-[1]">
+            <div className="hero-copy-panel">
             <p className="label-caps mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-[var(--accent-blue)]" />
               {t.hero.label}
@@ -165,6 +166,7 @@ export function Hero() {
                   <span className="font-medium text-sm">{t.hero.phoneLinkedIn}</span>
                 </a>
               </div>
+            </div>
             </div>
           </div>
 

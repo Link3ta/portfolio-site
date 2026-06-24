@@ -507,6 +507,24 @@ html.lenis body {
   flex-shrink: 0;
 }
 
+/* Hero — frosted panel behind copy (desktop) */
+.hero-copy-panel {
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .hero-copy-panel {
+    padding: 2rem 2.25rem 2.25rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    box-shadow:
+      0 8px 32px rgba(15, 23, 42, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+}
+
 /* Hero — ambient real estate collage (Marbella left, Florida right) */
 .hero-re-bg {
   position: absolute;
@@ -528,22 +546,23 @@ html.lenis body {
   box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
 }
 .hero-re-cluster-left .hero-re-tile-a {
-  left: -6%;
-  top: 10%;
-  width: min(30vw, 320px);
-  height: 44%;
+  left: -12%;
+  top: 12%;
+  width: min(28vw, 300px);
+  height: 40%;
 }
 .hero-re-cluster-left .hero-re-tile-b {
-  left: 2%;
-  bottom: 8%;
-  width: min(22vw, 240px);
-  height: 30%;
+  left: -4%;
+  bottom: 10%;
+  width: min(20vw, 220px);
+  height: 26%;
 }
 .hero-re-cluster-left .hero-re-tile-c {
-  left: 12%;
-  top: 44%;
-  width: min(18vw, 200px);
-  height: 24%;
+  left: 4%;
+  top: 48%;
+  width: min(16vw, 180px);
+  height: 22%;
+  opacity: 0.85;
 }
 .hero-re-cluster-right .hero-re-tile-d {
   right: -4%;
